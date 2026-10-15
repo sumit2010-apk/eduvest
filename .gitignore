@@ -11,3 +11,4 @@ models/*
 !models/.gitkeep
 .pytest_cache/
 .coverage
+app_backup.py
