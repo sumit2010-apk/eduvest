@@ -322,34 +322,33 @@ if client is None:
                         )
 
             except Exception as exc:
-    import logging
-    import re
+                import logging
+                import re
 
-    error_message = str(exc)
+                error_message = str(exc)
 
-    # Redact common sensitive values before writing to logs.
-    error_message = re.sub(
-        r"(?i)(access_token|refresh_token|api[_-]?key|"
-        r"authorization|password|secret)\s*[:=]\s*['\"]?[^,\s'\"]+",
-        r"\1=[REDACTED]",
-        error_message,
-    )
-    error_message = re.sub(
-        r"eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+",
-        "[REDACTED_TOKEN]",
-        error_message,
-    )
+                error_message = re.sub(
+                    r"(?i)(access_token|refresh_token|api[_-]?key|"
+                    r"authorization|password|secret)\s*[:=]\s*['\"]?[^,\s'\"]+",
+                    r"\1=[REDACTED]",
+                    error_message,
+                )
+                error_message = re.sub(
+                    r"eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+",
+                    "[REDACTED_TOKEN]",
+                    error_message,
+                )
 
-    logging.error(
-        "EduVest authentication failed (%s): %s",
-        type(exc).__name__,
-        error_message[:300],
-    )
+                logging.error(
+                    "EduVest authentication failed (%s): %s",
+                    type(exc).__name__,
+                    error_message[:300],
+                )
 
-    st.error(
-        f"Authentication failed ({type(exc).__name__}). "
-        "Check the app logs for diagnostic details."
-    )
+                st.error(
+                    f"Authentication failed ({type(exc).__name__}). "
+                    "Check the app logs for diagnostic details."
+                )
 
     st.stop()
 
